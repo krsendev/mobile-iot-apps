@@ -12,6 +12,11 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.material3.SnackbarHost
+import androidx.compose.material3.SnackbarHostState
+import kotlinx.coroutines.launch
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
@@ -30,6 +35,9 @@ fun DashboardScreen(
     onAddSensorClick: () -> Unit,
     onDeleteSensor: (SensorItem) -> Unit
 ) {
+    // mfitur pesan ketika ada sensor card yang dihapus
+    val snackbarHostState = remember { SnackbarHostState() }
+    val scope = rememberCoroutineScope()
     Scaffold(
         topBar = {
             TopAppBar(
@@ -65,6 +73,9 @@ fun DashboardScreen(
                     contentDescription = "Tambah Sensor"
                 )
             }
+        },
+        snackbarHost = {
+            SnackbarHost(hostState = snackbarHostState)
         }
     ) { innerPadding ->
         LazyVerticalGrid(
@@ -141,7 +152,15 @@ fun DashboardScreen(
                 items(activeSensors, key = { it.id }) { sensor ->
                     SensorCard(
                         sensor = sensor,
-                        onDeleteClick = { onDeleteSensor(sensor) }
+                        onDeleteClick = {
+                            onDeleteSensor(sensor)
+                            // muncul pesan ketika dihapus
+                            scope.launch {
+                                snackbarHostState.showSnackbar(
+                                    message = "${sensor.name} berhasil dihapus"
+                                )
+                            }
+                        }
                     )
                 }
             }
