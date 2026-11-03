@@ -6,6 +6,7 @@ import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.GridItemSpan
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
@@ -14,10 +15,13 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.tooling.preview.Devices
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.example.iotapps.model.SensorCatalog
 import com.example.iotapps.model.SensorItem
 import com.example.iotapps.ui.components.SensorCard
-import androidx.compose.foundation.shape.CircleShape
+import com.example.iotapps.ui.theme.IoTAppsTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -142,5 +146,30 @@ fun DashboardScreen(
                 }
             }
         }
+    }
+}
+
+// Preview untuk Mobile kondisi Potrait
+@Preview(
+    name = "Phone - Potrait",
+    showBackground = true,
+    showSystemUi = true,
+    device = Devices.PIXEL_7
+)
+// Preview untuk Tablet kondisi Landscape
+@Preview(
+    name = "Tablet - Landscape",
+    showBackground = true,
+    showSystemUi = true,
+    device = Devices.TABLET
+)
+@Composable
+fun DashboardScreenPreview() {
+    IoTAppsTheme {
+        DashboardScreen(
+            activeSensors = SensorCatalog.availableSensors,
+            onAddSensorClick = {},
+            onDeleteSensor = {}
+        )
     }
 }

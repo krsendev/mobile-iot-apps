@@ -11,10 +11,14 @@ import androidx.compose.material.icons.filled.Add
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.tooling.preview.Devices
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.iotapps.model.SensorCatalog
 import com.example.iotapps.model.SensorItem
 import com.example.iotapps.ui.components.getSensorIcon
+import com.example.iotapps.ui.theme.IoTAppsTheme
+import kotlin.collections.List
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -110,5 +114,30 @@ fun ListSensorScreen(
                 }
             }
         }
+    }
+}
+
+// Preview untuk Mobile kondisi Potrait
+@Preview(
+    name = "Phone - Potrait",
+    showBackground = true,
+    showSystemUi = true,
+    device = Devices.PIXEL_7
+)
+// Preview untuk Tablet kondisi Landscape
+@Preview(
+    name = "Tablet - Landscape",
+    showBackground = true,
+    showSystemUi = true,
+    device = Devices.TABLET
+)
+@Composable
+fun ListSensorScreenPreview() {
+    IoTAppsTheme {
+        ListSensorScreen(
+            activeSensors = SensorCatalog.availableSensors,
+            onSensorSelect = {},
+            onBack = {}
+        )
     }
 }
