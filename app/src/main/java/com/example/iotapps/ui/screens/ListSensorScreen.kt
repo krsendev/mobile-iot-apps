@@ -10,6 +10,11 @@ import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.material3.SnackbarHost
+import androidx.compose.material3.SnackbarHostState
+import kotlinx.coroutines.launch
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
@@ -27,6 +32,8 @@ fun ListSensorScreen(
     onSensorSelect: (SensorItem) -> Unit,
     onBack: () -> Unit
 ) {
+    val snackbarHostState = remember { SnackbarHostState() }
+    val scope = rememberCoroutineScope()
     Scaffold(
         topBar = {
             TopAppBar(
@@ -44,6 +51,9 @@ fun ListSensorScreen(
                     titleContentColor = MaterialTheme.colorScheme.primary
                 )
             )
+        },
+        snackbarHost = {
+            SnackbarHost(hostState = snackbarHostState)
         }
     ) { innerPadding ->
         LazyColumn(
@@ -61,6 +71,12 @@ fun ListSensorScreen(
                         .fillMaxWidth()
                         .clickable(enabled = !isAlreadyActive) {
                             onSensorSelect(sensor)
+                            // Memunculkan pesan ketika sensor ditambahkan
+                            scope.launch {
+                                snackbarHostState.showSnackbar(
+                                    message = "${sensor.name} berhasil ditambahkan"
+                                )
+                            }
                         },
                     shape = RoundedCornerShape(12.dp),
                     colors = CardDefaults.cardColors(
