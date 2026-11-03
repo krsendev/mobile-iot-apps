@@ -13,6 +13,8 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Lock
 import androidx.compose.material.icons.filled.Person
@@ -68,6 +70,7 @@ fun LoginScreen(
     Column(
         modifier = Modifier
             .fillMaxSize()
+            .verticalScroll(rememberScrollState())
             .background(MaterialTheme.colorScheme.background)
             .padding(24.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
