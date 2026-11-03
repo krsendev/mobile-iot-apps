@@ -14,6 +14,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
+import androidx.compose.material3.SnackbarDuration
 import kotlinx.coroutines.launch
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Devices
@@ -73,8 +74,10 @@ fun ListSensorScreen(
                             onSensorSelect(sensor)
                             // Memunculkan pesan ketika sensor ditambahkan
                             scope.launch {
+                                snackbarHostState.currentSnackbarData?.dismiss() // Mengatasi pesan delay
                                 snackbarHostState.showSnackbar(
-                                    message = "${sensor.name} berhasil ditambahkan"
+                                    message = "${sensor.name} berhasil ditambahkan",
+                                    duration = SnackbarDuration.Short
                                 )
                             }
                         },

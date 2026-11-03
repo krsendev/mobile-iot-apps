@@ -16,6 +16,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
+import androidx.compose.material3.SnackbarDuration
 import kotlinx.coroutines.launch
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -156,8 +157,10 @@ fun DashboardScreen(
                             onDeleteSensor(sensor)
                             // muncul pesan ketika dihapus
                             scope.launch {
+                                snackbarHostState.currentSnackbarData?.dismiss() // Mengatasi pesan delay
                                 snackbarHostState.showSnackbar(
-                                    message = "${sensor.name} berhasil dihapus"
+                                    message = "${sensor.name} berhasil dihapus",
+                                    duration = SnackbarDuration.Short
                                 )
                             }
                         }
