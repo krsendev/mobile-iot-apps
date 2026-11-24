@@ -66,7 +66,7 @@ fun MainApp() {
                         if (!activeSensorIds.contains(selectedSensor.id)) {
                             activeSensorIds.add(selectedSensor.id)
                         }
-                        currentScreen = Screen.DASHBOARD
+                        currentScreen = Screen.LIST_SENSOR
                     },
                     onBack = {
                         currentScreen = Screen.DASHBOARD
